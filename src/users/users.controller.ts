@@ -20,14 +20,12 @@ export class UsersController {
       'rpc_queue',
       message,
     );
-
-    const pubsubMessage = 'A hopping-good time!';
+    const dataUser = this.usersService.create(createUserDto);
     this.rabbitMQPublisher.publishMessage(
       'pubsub_exchange',
       'pubsub_key',
-      pubsubMessage,
+      JSON.stringify(dataUser),
     );
-    this.usersService.create(createUserDto);
     return response;
   }
 
